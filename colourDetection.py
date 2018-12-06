@@ -43,7 +43,7 @@ while True:
 			 cv2.inRange(hsv, lower_green, upper_green),
 			 cv2.inRange(hsv, lower_white, upper_white),
 			 cv2.inRange(hsv, lower_yellow, upper_yellow)]
-	result = cv2.bitwise_and(frame,frame,mask = masks[3])
+	result = cv2.bitwise_and(frame,frame,mask = masks[1])
 	# for i in range(0):#	len(masks)):
 	# gray = cv2.cvtColor(result, cv2.COLOR_BGR2GRAY)
 	# gray = np.float32(gray)
@@ -63,22 +63,29 @@ while True:
 			x2 = x1 + size
 			y2 = y1 + size
 			cv2.rectangle(frame, (x1 + space * x, y1 + space * y), (x2 + space * x, y2 + space * y), (255, 0, 255), 3)
+			l1 = lower_green[0]
+			l2 = lower_green[1]
+			l3 = lower_green[2]
+
+			u1 = upper_green[0]
+			u2 = upper_green[1]
+			u3 = upper_green[2]
+			
+			b = result[int(x1 + space * x + size / 2)][int(y1 + space * y + size / 2)][0]
+			g = result[int(x1 + space * x + size / 2)][int(y1 + space * y + size / 2)][1]
+			r = result[int(x1 + space * x + size / 2)][int(y1 + space * y + size / 2)][2]
+			print(b, g, r)
 			if x == 1 and y == 1:
-
-				# if int(frame[x1 + space * x + size / 2][y1 + space * y + size / 2][0]) > lower_yellow[0]:
-
-				# 	if int(frame[x1 + space * x + size / 2][y1 + space * y + size / 2][1]) > lower_yellow[1]:
-
-				# 		if int(frame[x1 + space * x + size / 2][y1 + space * y + size / 2][2]) > lower_yellow[2]:
-							
-				# 			if int(frame[x1 + space * x + size / 2][y1 + space * y + size / 2][0]) > upper_yellow[0]:
-								
-				# 				if int(frame[x1 + space * x + size / 2][y1 + space * y + size / 2][1]) > upper_yellow[1]:
-								
-				# 					if int(frame[x1 + space * x + size / 2][y1 + space * y + size / 2][2]) > upper_yellow[2]:
-				# 						# cv2.circle(frame, (int(x1 + space * x + size / 2), int(y1 + space * y + size / 2)), 10, (255, 0, 0), 2)
-										# print(frame[int(x1 + space * x + size / 2)][int(y1 + space * y + size / 2)])
-				print(frame[int(x1 + space * x + size / 2)][int(y1 + space * y + size / 2)][0] > lower_yellow[0], frame[int(x1 + space * x + size / 2)][int(y1 + space * y + size / 2)][0] < upper_yellow[0])
+				if b > l1:
+					if g > l2:
+						if r > l3:
+							if b < u1:
+								if g < u2:
+									if r < u3:
+										cv2.circle(frame, (int(x1 + space * x + size / 2), int(y1 + space * y + size / 2)), 10, (255, 0, 0), 2)
+										print(frame[int(x1 + space * x + size / 2)][int(y1 + space * y + size / 2)])
+										cv2.destroyAllWindows()
+				# print(frame[int(x1 + space * x + size / 2)][int(y1 + space * y + size / 2)][0] > lower_yellow[0], frame[int(x1 + space * x + size / 2)][int(y1 + space * y + size / 2)][0] < upper_yellow[0])
 
 			# print(frame[x1 + space * x][y1 + space * y])
 	cv2.imshow('result', result)
