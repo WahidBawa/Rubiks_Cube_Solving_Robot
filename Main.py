@@ -1,5 +1,13 @@
+from rubik_solver import utils
 # Scramble: D' B2 L U' B L' D R' D' B2 U2 F' R2 L2 B' L2 B U2 L2 #green on front; white on top
-cube = 'oyrryorwwyyybbrywoboogrogwrggbygygrowbbgoobwrybwgwbgrw' #solve with red on front; yellow on top
+# cube = 'oyrryorwwyyybbrywoboogrogwrggbygygrowbbgoobwrybwgwbgrw' #solve with red on front; yellow on top
+
+# Scramble: R' B' U' B U' B2 L' B' U' B2 U2 F2 L2 U2 D' R2 L2 B2 L2 R' #green on front; white on top
+# cube = 'gboyygygrygowbywbybwwrroryggrwwgyrowbrooorbwobbyowggbr' #solve with red on front; yellow on top
+
+# Scramble: F2 L2 F2 D U2 L2 B2 D' B2 F2 U2 F' R' B2 F L' U' F2 U2 R' #green on front; white on top
+cube = 'rwbyybbwrggoybboyywobwrroogworyggrrgygwrooorbggybwbyww' #solve with red on front; yellow on top
+
 w = y = b = g = r = o = 0
 for i in cube:
 	if i == "w":
@@ -22,5 +30,5 @@ print("red: ", r)
 print("orange: ", o)
 
 
-from rubik_solver import utils
-print(utils.solve(cube, 'Kociemba'))
+solve = utils.solve(cube, 'Kociemba')
+print(solve, "size:", len(solve))
