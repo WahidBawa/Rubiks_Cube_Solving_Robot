@@ -6,7 +6,8 @@ from rubik_solver import utils
 # cube = 'gboyygygrygowbywbybwwrroryggrwwgyrowbrooorbwobbyowggbr' #solve with red on front; yellow on top
 
 # Scramble: F2 L2 F2 D U2 L2 B2 D' B2 F2 U2 F' R' B2 F L' U' F2 U2 R' #green on front; white on top
-cube = 'rwbyybbwrggoybboyywobwrroogworyggrrgygwrooorbggybwbyww' #solve with red on front; yellow on top
+# cube = 'rwbyybbwrggoybboyywobwrroogworyggrrgygwrooorbggybwbyww' #solve with red on front; yellow on top
+cube = 'gwbbyowbwworybbgyybrbwryggoogrggowwyygrwobbyorrgowryro' #solve with red on front; yellow on top
 
 w = y = b = g = r = o = 0
 for i in cube:
