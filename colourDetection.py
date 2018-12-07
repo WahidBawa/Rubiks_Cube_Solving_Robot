@@ -13,24 +13,27 @@ import cv2
 # cap = cv2.VideoCapture("http://10.42.0.21:4747/mjpegfeed?640x480")
 # cap = cv2.VideoCapture("http://10.42.0.21:4747/mjpegfeed?320x240")
 
-cap = cv2.VideoCapture("http://10.42.0.248:8080/video")
-# cap = cv2.VideoCapture("http://10.42.0.248:4747/mjpegfeed?640x480")
+# cap = cv2.VideoCapture("http://10.42.0.248:8080/video")
+cap = cv2.VideoCapture("http://10.42.0.248:4747/mjpegfeed?640x480")
 # cap = cv2.VideoCapture("http://192.168.0.75:8080/video")
 # cap = cv2.VideoCapture("http://192.168.0.75:4747/mjpegfeed?640x480")
+lower_blue = np.array([109, 86, 50])
+upper_blue = np.array([138, 238, 217])
 
-# lower_blue = np.array([100, 100, 90])
-# upper_blue = np.array([114, 245, 200])
-lower_blue = np.array([106, 179, 54])
-upper_blue = np.array([125, 241, 98])
+lower_green = np.array([42, 162, 101])
+upper_green = np.array([74, 255, 200])
 
-lower_green = np.array([54, 194, 72])
-upper_green = np.array([80, 255, 225])
+lower_white = np.array([0, 0, 223])
+upper_white = np.array([179, 28, 255])
 
-lower_white = np.array([83, 0, 114])
-upper_white = np.array([151, 156, 187])
+lower_yellow = np.array([23, 123, 193])
+upper_yellow = np.array([36, 255, 255])
 
-lower_yellow = np.array([29, 164, 110])
-upper_yellow = np.array([38, 255, 170])
+lower_red = np.array([0, 194, 162])
+upper_red = np.array([2, 255, 255])
+
+lower_orange = np.array([3, 205, 209])
+upper_orange = np.array([10, 255, 255])
 
 while True:
 	_, frame = cap.read()
@@ -49,9 +52,11 @@ while True:
 	size, space = 50, 80
 	for x in range(3):
 		for y in range(3):
-			# x, y = 0, 2
-			x1 = int(width / 2 - size / 2 - (size + 40))
-			y1 = int(height / 2 - size / 2 - (size + 40))
+			x, y = 0, 0
+			# x1 = int(width / 2 - size / 2 - (size + 40))
+			# y1 = int(height / 2 - size / 2 - (size + 40))
+			x1 = 70
+			y1 = 163
 			x2 = x1 + size
 			y2 = y1 + size
 			cv2.rectangle(frame, (x1 + space * x, y1 + space * y), (x2 + space * x, y2 + space * y), (255, 0, 0), 3)

@@ -49,35 +49,32 @@ while(True):
     s2 = cv2.getTrackbarPos('s2','result')
     v2 = cv2.getTrackbarPos('v2','result')
 
-    lower_blue = np.array([106, 179, 54])
-    upper_blue = np.array([125, 241, 98])
+    lower_blue = np.array([109, 86, 50])
+    upper_blue = np.array([138, 238, 217])
 
+    lower_green = np.array([42, 162, 101])
+    upper_green = np.array([74, 255, 200])
 
-    lower_green = np.array([54, 194, 72])
-    upper_green = np.array([80, 255, 225])
+    lower_white = np.array([0, 0, 223])
+    upper_white = np.array([179, 28, 255])
 
-    lower_white = np.array([83, 0, 114])
-    upper_white = np.array([151, 156, 187])
+    lower_yellow = np.array([23, 123, 193])
+    upper_yellow = np.array([36, 255, 255])
 
-    lower_yellow = np.array([29, 164, 110])
-    upper_yellow = np.array([38, 255, 170])
+    lower_red = np.array([0, 194, 162])
+    upper_red = np.array([2, 255, 255])
 
+    lower_orange = np.array([3, 205, 209])
+    upper_orange = np.array([10, 255, 255])
     # lower_red = np.array([h, s, v])
     # upper_red = np.array([h2, s2, v2])
-
-    # Min HSV: 0 160 204
-    # Max HSV: 179 230 242
-    # [Finished in 245.1s]
-
-    # Min HSV: 0 152 135
-    # Max HSV: 179 255 229
-    # [Finished in 599.1s]
 
     # mask = cv2.inRange(hsv, lower_blue, upper_blue)
     # mask = cv2.inRange(hsv,lower_green, upper_green)
     # mask = cv2.inRange(hsv, lower_white, upper_white)
-    mask = cv2.inRange(hsv, lower_yellow, upper_yellow)
+    # mask = cv2.inRange(hsv, lower_yellow, upper_yellow)
     # mask = cv2.inRange(hsv, lower_red, upper_red)
+    mask = cv2.inRange(hsv, lower_orange, upper_orange)
     
 
     # result = cv2.bitwise_and(frame,frame,mask = mask)
