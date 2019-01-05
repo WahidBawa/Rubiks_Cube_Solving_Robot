@@ -33,15 +33,22 @@ print("red: ", r)
 print("orange: ", o)
 
 solve = utils.solve(cube, 'Kociemba')
-print(solve, "size:", len(solve))
+
+algo = []
+for i in solve:
+	tmp = str(i)
+	if len(tmp) == 1:
+		tmp += " "
+	algo.append(tmp)
+print(algo, "size:", len(algo))
 
 
 # you need to give the arduino side of things to properly initialize from prior experience, can't be sure of this until we test the theory
-# t = 0;
-# while t < 1000:
-# 	t += 1
+t = 0;
+while t < 1000:
+	t += 1
 
 # arduinoData = serial.Serial('com3', 9600) # this could be either or, will have to see which one is the right one during testing
 # arduinoData = serial.Serial('COM3', 9600)
-# for i in solve: # this will be used to feed the data to the arduino side of things to intitiate movements on the different servos
+# for i in algo: # this will be used to feed the data to the arduino side of things to intitiate movements on the different servos
 # 	arduinoData.write(i)
