@@ -2,9 +2,9 @@
 import numpy as np
 import cv2
 # img = cv2.imread('pic.jpg')
-# cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0)
 
-# cap = cv2.VideoCapture("http://192.168.0.75:4747/mjpegfeed?640x480")
+cap = cv2.VideoCapture("http://192.168.137.133:4747/mjpegfeed?640x480")
 # cap = cv2.VideoCapture("http://192.168.0.75:4747/mjpegfeed?320x240")
 
 # cap = cv2.VideoCapture("http://10.42.0.248:4747/mjpegfeed?640x480")
@@ -14,7 +14,7 @@ import cv2
 # cap = cv2.VideoCapture("http://10.42.0.21:4747/mjpegfeed?320x240")
 
 # cap = cv2.VideoCapture("http://10.42.0.248:8080/video")
-cap = cv2.VideoCapture("http://10.42.0.248:4747/mjpegfeed?640x480")
+# cap = cv2.VideoCapture("http://10.42.0.248:4747/mjpegfeed?640x480")
 # cap = cv2.VideoCapture("http://192.168.0.75:8080/video")
 # cap = cv2.VideoCapture("http://192.168.0.75:4747/mjpegfeed?640x480")
 
@@ -72,7 +72,7 @@ while True:
 				print("maybe worker")
 				cv2.circle(frame, (int(x1 + space * x + size / 2), int(y1 + space * y + size / 2)), 15, (255, 0, 255), 3)
 				# cv2.rectangle(frame, (x1 + space * x, y1 + space * y), (x2 + space * x, y2 + space * y), (255, 0, 255), 3)
-			# print(frame[x1 + space * x][y1 + space * y])
+				print(frame[x1 + space * x][y1 + space * y])
 
 	cv2.imshow('result', result)
 	# cv2.imshow('mask', mask)
@@ -81,5 +81,5 @@ while True:
 	if k == 27:
 		break
 	# if cv2.waitKey(1) & 0xFF == ord('q'):
-
+cap.release()
 cv2.destroyAllWindows()

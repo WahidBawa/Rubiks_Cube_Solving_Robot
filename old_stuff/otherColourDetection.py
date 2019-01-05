@@ -14,7 +14,7 @@ cap = cv2.VideoCapture(0)
 # cap = cv2.VideoCapture("http://10.42.0.21:4747/mjpegfeed?320x240")
 
 # cap = cv2.VideoCapture("http://10.42.0.248:8080/video")
-cap = cv2.VideoCapture("http://10.42.0.248:4747/mjpegfeed?640x480")
+# cap = cv2.VideoCapture("http://10.42.0.248:4747/mjpegfeed?640x480")
 # cap = cv2.VideoCapture("http://192.168.0.75:8080/video")
 # cap = cv2.VideoCapture("http://192.168.0.75:4747/mjpegfeed?640x480")
 def nothing(x):
@@ -66,15 +66,15 @@ while(True):
 
     lower_orange = np.array([3, 205, 209])
     upper_orange = np.array([10, 255, 255])
-    # lower_red = np.array([h, s, v])
-    # upper_red = np.array([h2, s2, v2])
+    lower_red = np.array([h, s, v])
+    upper_red = np.array([h2, s2, v2])
 
     # mask = cv2.inRange(hsv, lower_blue, upper_blue)
     # mask = cv2.inRange(hsv,lower_green, upper_green)
     # mask = cv2.inRange(hsv, lower_white, upper_white)
     # mask = cv2.inRange(hsv, lower_yellow, upper_yellow)
-    # mask = cv2.inRange(hsv, lower_red, upper_red)
-    mask = cv2.inRange(hsv, lower_orange, upper_orange)
+    mask = cv2.inRange(hsv, lower_red, upper_red)
+    # mask = cv2.inRange(hsv, lower_orange, upper_orange)
     
 
     # result = cv2.bitwise_and(frame,frame,mask = mask)

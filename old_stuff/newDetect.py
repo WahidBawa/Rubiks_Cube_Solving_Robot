@@ -3,9 +3,9 @@ import cv2
 import numpy as np
 
 #capturing video through webcam
-# cap=cv2.VideoCapture(0)
+cap=cv2.VideoCapture(0)
 # cap = cv2.VideoCapture("http://10.42.0.248:8080/video")
-cap = cv2.VideoCapture("http://10.42.0.248:4747/mjpegfeed?640x480")
+# cap = cv2.VideoCapture("http://10.42.0.248:4747/mjpegfeed?640x480")
 # cap = cv2.VideoCapture("http://192.168.0.75:8080/video")
 # cap = cv2.VideoCapture("http://192.168.0.75:4747/mjpegfeed?640x480")
 while(1):
