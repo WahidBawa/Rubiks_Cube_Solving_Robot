@@ -52,3 +52,4 @@ while t < 1000:
 # arduinoData = serial.Serial('COM3', 9600)
 # for i in algo: # this will be used to feed the data to the arduino side of things to intitiate movements on the different servos
 # 	arduinoData.write(i)
+# 	arduinoData.write(i.encode()) # found this somewhere, just incase we end up needing this
