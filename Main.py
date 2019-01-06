@@ -7,7 +7,7 @@ import serial # this will be used so that the python interface can interact with
 # cube = 'oyrryorwwyyybbrywoboogrogwrggbygygrowbbgoobwrybwgwbgrw' #solve with red on front; yellow on top
 
 # Scramble: R' B' U' B U' B2 L' B' U' B2 U2 F2 L2 U2 D' R2 L2 B2 L2 R' #green on front; white on top
-cube = 'gboyygygrygowbywbybwwrroryggrwwgyrowbrooorbwobbyowggbr' #solve with red on front; yellow on top
+# cube = 'gboyygygrygowbywbybwwrroryggrwwgyrowbrooorbwobbyowggbr' #solve with red on front; yellow on top
 
 # Scramble: F2 L2 F2 D U2 L2 B2 D' B2 F2 U2 F' R' B2 F L' U' F2 U2 R' #green on front; white on top
 # cube = 'rwbyybbwrggoybboyywobwrroogworyggrrgygwrooorbggybwbyww' #solve with red on front; yellow on top
@@ -42,9 +42,10 @@ for i in solve: #this will go through your solve
 	if len(tmp) == 1: # this will add a space on single clockwise moves
 		tmp += " "
 	algo.append(tmp) # this will add the single move to the algo list
-print(algo, "size:", len(algo)) # this will print out the solve along with the actual size of the moves
+# print(algo, "size:", len(algo)) # this will print out the solve along with the actual size of the movements
+print(solve, "size:", len(algo)) # this will print out the solve along with the actual size of the movements
 
-
+algo = ["R2", "L2", "U2", "D2", "F2", "B2"] # testing the actual servos on something that should always work
 # you need to give the arduino side of things to properly initialize from prior experience, can't be sure of this until we test the theory
 t = 0;
 while t < 1000:
