@@ -10,7 +10,7 @@ import serial # this will be used so that the python interface can interact with
 # cube = 'gboyygygrygowbywbybwwrroryggrwwgyrowbrooorbwobbyowggbr' #solve with red on front; yellow on top
 
 # Scramble: F2 L2 F2 D U2 L2 B2 D' B2 F2 U2 F' R' B2 F L' U' F2 U2 R' #green on front; white on top
-# cube = 'rwbyybbwrggoybboyywobwrroogworyggrrgygwrooorbggybwbyww' #solve with red on front; yellow on top
+cube = 'rwbyybbwrggoybboyywobwrroogworyggrrgygwrooorbggybwbyww' #solve with red on front; yellow on top
 
 # this below is just to count the amount of tiles with the same colour to ensure that their is no human error involved
 w = y = b = g = r = o = 0
@@ -33,26 +33,29 @@ print("blue: ", b)
 print("green: ", g)
 print("red: ", r)
 print("orange: ", o)
+maxTiles = max(w, y, b, g, r, o)
 
-solve = utils.solve(cube, 'Kociemba') # this gets a solve alg
+if maxTiles == 9:
+	solve = utils.solve(cube, 'Kociemba') # this gets a solve alg
+	algo = [] # this creates an empty list
+	for i in solve: #this will go through your solve
+		tmp = str(i) # it converts the solve instance to a string
+		if len(tmp) == 1: # this will add a space on single clockwise moves
+			tmp += " "
+		algo.append(tmp) # this will add the single move to the algo list
+	# print(algo, "size:", len(algo)) # this will print out the solve along with the actual size of the movements
+	print(solve, "size:", len(algo)) # this will print out the solve along with the actual size of the movements
 
-algo = [] # this creates an empty list
-for i in solve: #this will go through your solve
-	tmp = str(i) # it converts the solve instance to a string
-	if len(tmp) == 1: # this will add a space on single clockwise moves
-		tmp += " "
-	algo.append(tmp) # this will add the single move to the algo list
-# print(algo, "size:", len(algo)) # this will print out the solve along with the actual size of the movements
-print(solve, "size:", len(algo)) # this will print out the solve along with the actual size of the movements
+	algo = ["R2", "L2", "U2", "D2", "F2", "B2"] # testing the actual servos on something that should always work
+	# you need to give the arduino side of things to properly initialize from prior experience, can't be sure of this until we test the theory
+	t = 0;
+	while t < 1000:
+		t += 1
 
-algo = ["R2", "L2", "U2", "D2", "F2", "B2"] # testing the actual servos on something that should always work
-# you need to give the arduino side of things to properly initialize from prior experience, can't be sure of this until we test the theory
-t = 0;
-while t < 1000:
-	t += 1
-
-# arduinoData = serial.Serial('com3', 9600) # this could be either or, will have to see which one is the right one during testing
-# arduinoData = serial.Serial('COM3', 9600)
-# for i in algo: # this will be used to feed the data to the arduino side of things to intitiate movements on the different servos
-# 	arduinoData.write(i)
-# 	arduinoData.write(i.encode()) # found this somewhere, just incase we end up needing this
+	# arduinoData = serial.Serial('com3', 9600) # this could be either or, will have to see which one is the right one during testing
+	# arduinoData = serial.Serial('COM3', 9600)
+	# for i in algo: # this will be used to feed the data to the arduino side of things to intitiate movements on the different servos
+	# 	arduinoData.write(i)
+	# 	arduinoData.write(i.encode()) # found this somewhere, just incase we end up needing this
+else:
+	print("Human Error")
