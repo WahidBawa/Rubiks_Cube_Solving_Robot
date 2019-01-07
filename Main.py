@@ -46,7 +46,7 @@ if maxTiles == 9:
 	# print(algo, "size:", len(algo)) # this will print out the solve along with the actual size of the movements
 	print(solve, "size:", len(algo)) # this will print out the solve along with the actual size of the movements
 
-	algo = ["R2", "L2", "U2", "D2", "F2", "B2"] # testing the actual servos on something that should always work
+	# algo = ["R2", "L2", "U2", "D2", "F2", "B2"] # testing the actual servos on something that should always work
 	# you need to give the arduino side of things to properly initialize from prior experience, can't be sure of this until we test the theory
 	t = 0;
 	while t < 1000:
