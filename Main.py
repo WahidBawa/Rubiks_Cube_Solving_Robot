@@ -1,3 +1,4 @@
+import time
 import sys
 from rubik_solver import utils # this is how we actually get the algorithm for solving the cube
 import serial # this will be used so that the python interface can interact with the arduino interface
@@ -34,6 +35,7 @@ print("green: ", g)
 print("red: ", r)
 print("orange: ", o)
 maxTiles = max(w, y, b, g, r, o)
+port = "com3"
 
 if maxTiles == 9:
 	solve = utils.solve(cube, 'Kociemba') # this gets a solve alg
@@ -48,11 +50,9 @@ if maxTiles == 9:
 
 	# algo = ["R2", "L2", "U2", "D2", "F2", "B2"] # testing the actual servos on something that should always work
 	# you need to give the arduino side of things to properly initialize from prior experience, can't be sure of this until we test the theory
-	t = 0;
-	while t < 1000:
-		t += 1
+	time.sleep(5) # sleeps for five seconds giving the arduino enough time to initialize
 
-	arduinoData = serial.Serial('com3', 9600) # this could be either or, will have to see which one is the right one during testing
+	arduinoData = serial.Serial(port, 9600) # this could be either or, will have to see which one is the right one during testing
 	# arduinoData = serial.Serial('COM3', 9600)
 	for i in algo: # this will be used to feed the data to the arduino side of things to intitiate movements on the different servos
 		my_str = i
