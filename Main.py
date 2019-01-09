@@ -52,10 +52,17 @@ if maxTiles == 9:
 	while t < 1000:
 		t += 1
 
-	# arduinoData = serial.Serial('com3', 9600) # this could be either or, will have to see which one is the right one during testing
+	arduinoData = serial.Serial('com3', 9600) # this could be either or, will have to see which one is the right one during testing
 	# arduinoData = serial.Serial('COM3', 9600)
-	# for i in algo: # this will be used to feed the data to the arduino side of things to intitiate movements on the different servos
-	# 	arduinoData.write(i)
-	# 	arduinoData.write(i.encode()) # found this somewhere, just incase we end up needing this
+	for i in algo: # this will be used to feed the data to the arduino side of things to intitiate movements on the different servos
+		my_str = i
+		my_str_as_bytes = str.encode(my_str)
+		type(my_str_as_bytes) # ensure it is byte representation
+		my_decoded_str = my_str_as_bytes.decode()
+		type(my_decoded_str) # ensure it is string representation
+		arduinoData.write(my_str_as_bytes)
+		print("i am doing shit", i)
+		# arduinoData.write(i.encode()) # found this somewhere, just incase we end up needing this
+	
 else:
 	print("Human Error")

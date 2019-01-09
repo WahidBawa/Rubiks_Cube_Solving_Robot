@@ -17,6 +17,7 @@ void setup() {
   green.attach(A3);
   orange.attach(A4);
   white.attach(A5);
+//  yellow.write(180);
   Serial.begin(9600);
 }
 void loop() {
@@ -38,15 +39,15 @@ void turn(String side, String dir){
   int sideIndex = sides.indexOf(side); // this will get the index of the side that needs to be turned, this is basically the index we will use to determine which servo will be used
   if (dir == "2"){ // this will be for a double turn
     servos[sideIndex].write(180); // this will probably have to be adjusted later
-    delay(500); //this will probably have to be adjusted later
+    delay(1000); //this will probably have to be adjusted later
     servos[sideIndex].write(90); // this will stop the servo
   }else if(dir == "'"){ // this will be for the counter clockwise turn
     servos[sideIndex].write(0); // this will probably have to be adjusted later
-    delay(250); //this will probably have to be adjusted later
+    delay(1000); //this will probably have to be adjusted later
     servos[sideIndex].write(90); // this will stop the servo
   }else{ // this will be for the clockwise turn
     servos[sideIndex].write(180); // this will probably have to be adjusted later
-    delay(250); //this will probably have to be adjusted later
+    delay(1000); //this will probably have to be adjusted later
     servos[sideIndex].write(90); // this will stop the servo
   }
 }
