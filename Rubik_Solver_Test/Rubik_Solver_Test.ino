@@ -9,6 +9,11 @@ Servo white;
 
 char SerialData; // this will store the next move to be made
 String str; // this will be used later to convert the char to string
+
+
+String sides = "ULFRBD"; // this will be used to determine the index of the servos depending on which side needs to be turned
+int sideIndex; // this will get the index of the side that needs to be turned, this is basically the index we will use to determine which servo will be used
+
 void setup() {
   // this is just attaching the servos to their respective pins
   yellow.attach(A0);
@@ -26,29 +31,27 @@ void loop() {
    * Serial.available(); this will be checking whether there is input left
    * Serial.read(); this will read the input, the above line will make sure that there is somthing left to read to prevent any errors. This will be stored as a char
    */
+  Servo servos[] = {yellow, blue, red, green, orange, white}; // this is just a simple list that stores the servos that are to be turned
   if (Serial.available()){ // this will check if their is any more input left to take from the serial port which is written to with the python code
     SerialData = Serial.read(); // this will actually read the input from the serial port assuming that their is actual input to be read
     str = SerialData + ""; // this just converts the char type variable to a string type variable
-//    turn(str.charAt(0), str.charAt(1)); // this will take in the side that needs to be turned and also the direction of the turn
+    String side = "" + str.charAt(0);
+    String dir = "" + str.charAt(1);
+    Serial.println(side);
+    sideIndex = sides.indexOf(side);
+    if (dir.equals("2")){ // this will be for a double turn
+      servos[sideIndex].write(180); // this will probably have to be adjusted later
+      delay(1000); //this will probably have to be adjusted later
+      servos[sideIndex].write(90); // this will stop the servo
+    }else if(dir.equals("'")){ // this will be for the counter clockwise turn
+      servos[sideIndex].write(0); // this will probably have to be adjusted later
+      delay(1000); //this will probably have to be adjusted later
+      servos[sideIndex].write(90); // this will stop the servo
+    }else{ // this will be for the clockwise turn
+      servos[sideIndex].write(180); // this will probably have to be adjusted later
+      delay(1000); //this will probably have to be adjusted later
+      servos[sideIndex].write(90); // this will stop the servo
+    }
     Serial.println(str); //this is for testing purposes to see the actual input from the python side of things
-  }
-}
-
-void turn(String side, String dir){
-  String sides = "ULFRBD"; // this will be used to determine the index of the servos depending on which side needs to be turned
-  Servo servos[] = {yellow, blue, red, green, orange, white}; // this is just a simple list that stores the servos that are to be turned
-  int sideIndex = sides.indexOf(side); // this will get the index of the side that needs to be turned, this is basically the index we will use to determine which servo will be used
-  if (dir == "2"){ // this will be for a double turn
-    servos[sideIndex].write(180); // this will probably have to be adjusted later
-    delay(1000); //this will probably have to be adjusted later
-    servos[sideIndex].write(90); // this will stop the servo
-  }else if(dir == "'"){ // this will be for the counter clockwise turn
-    servos[sideIndex].write(0); // this will probably have to be adjusted later
-    delay(1000); //this will probably have to be adjusted later
-    servos[sideIndex].write(90); // this will stop the servo
-  }else{ // this will be for the clockwise turn
-    servos[sideIndex].write(180); // this will probably have to be adjusted later
-    delay(1000); //this will probably have to be adjusted later
-    servos[sideIndex].write(90); // this will stop the servo
   }
 }
