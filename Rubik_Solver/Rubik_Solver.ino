@@ -26,7 +26,7 @@ void loop() {
    * Serial.available(); this will be checking whether there is input left
    * Serial.read(); this will read the input, the above line will make sure that there is somthing left to read to prevent any errors. This will be stored as a char
    */
-  if (Serial.available()){ // this will check if their is any more input left to take from the serial port which is written to with the python code
+  while (Serial.available()){ // this will check if their is any more input left to take from the serial port which is written to with the python code
     SerialData = Serial.read(); // this will actually read the input from the serial port assuming that their is actual input to be read
     str = SerialData + ""; // this just converts the char type variable to a string type variable
 //    turn(str.charAt(0), str.charAt(1)); // this will take in the side that needs to be turned and also the direction of the turn

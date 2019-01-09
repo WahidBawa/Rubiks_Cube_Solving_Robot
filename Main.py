@@ -35,7 +35,7 @@ print("green: ", g)
 print("red: ", r)
 print("orange: ", o)
 maxTiles = max(w, y, b, g, r, o)
-port = "com3"
+port = "com4"
 
 if maxTiles == 9:
 	solve = utils.solve(cube, 'Kociemba') # this gets a solve alg

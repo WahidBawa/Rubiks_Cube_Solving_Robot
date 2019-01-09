@@ -9,7 +9,7 @@ Servo white;
 
 char SerialData; // this will store the next move to be made
 String str; // this will be used later to convert the char to string
-
+String bois;
 
 String sides = "ULFRBD"; // this will be used to determine the index of the servos depending on which side needs to be turned
 int sideIndex; // this will get the index of the side that needs to be turned, this is basically the index we will use to determine which servo will be used
@@ -22,7 +22,7 @@ void setup() {
   green.attach(A3);
   orange.attach(A4);
   white.attach(A5);
-//  yellow.write(180);
+  yellow.write(90);
   Serial.begin(9600);
   Serial.println("ready");
 }
@@ -37,7 +37,6 @@ void loop() {
     str = SerialData + ""; // this just converts the char type variable to a string type variable
     String side = "" + str.charAt(0);
     String dir = "" + str.charAt(1);
-    Serial.println(side);
     sideIndex = sides.indexOf(side);
     if (dir.equals("2")){ // this will be for a double turn
       servos[sideIndex].write(180); // this will probably have to be adjusted later
@@ -54,4 +53,5 @@ void loop() {
     }
     Serial.println(str); //this is for testing purposes to see the actual input from the python side of things
   }
+  Serial.println(str);
 }
