@@ -50,19 +50,23 @@ if maxTiles == 9:
 
 	# algo = ["R2", "L2", "U2", "D2", "F2", "B2"] # testing the actual servos on something that should always work
 	# you need to give the arduino side of things to properly initialize from prior experience, can't be sure of this until we test the theory
-	time.sleep(5) # sleeps for five seconds giving the arduino enough time to initialize
 
-	arduinoData = serial.Serial(port, 9600) # this could be either or, will have to see which one is the right one during testing
+	arduinoData = serial.Serial(port, 9600, timeout=5) # this could be either or, will have to see which one is the right one during testing
+	time.sleep(5) # sleeps for five seconds giving the arduino enough time to initialize
 	# arduinoData = serial.Serial('COM3', 9600)
-	for i in algo: # this will be used to feed the data to the arduino side of things to intitiate movements on the different servos
-		my_str = i
-		my_str_as_bytes = str.encode(my_str)
-		type(my_str_as_bytes) # ensure it is byte representation
-		my_decoded_str = my_str_as_bytes.decode()
-		type(my_decoded_str) # ensure it is string representation
-		arduinoData.write(my_str_as_bytes)
-		print("i am doing shit", i)
-		# arduinoData.write(i.encode()) # found this somewhere, just incase we end up needing this
-	
+	counter = 0;
+	while(True):
+		# if counter == 0:
+		for i in algo: # this will be used to feed the data to the arduino side of things to intitiate movements on the different servos
+			counter += 1
+			my_str = i
+			my_str_as_bytes = str.encode(my_str)
+			type(my_str_as_bytes) # ensure it is byte representation
+			my_decoded_str = my_str_as_bytes.decode()
+			type(my_decoded_str) # ensure it is string representation
+			arduinoData.write(my_str_as_bytes)
+			# print("i am doing shtuff", i)
+			# arduinoData.write(i.encode()) # found this somewhere, just incase we end up needing this
+		print(arduinoData.readline())
 else:
 	print("Human Error")
