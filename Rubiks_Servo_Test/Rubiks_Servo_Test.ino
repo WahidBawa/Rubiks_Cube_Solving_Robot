@@ -14,7 +14,8 @@ String sides = "ULFRBD"; // this will be used to determine the index of the serv
 int sideIndex; // this will get the index of the side that needs to be turned, this is basically the index we will use to determine which servo will be used
 
 int led = 13;
-
+int counter = 0;
+String str = "";
 void setup() {
   // this is just attaching the servos to their respective pins
   pinMode(led, OUTPUT);
@@ -34,29 +35,30 @@ void loop() {
    */
   Servo servos[] = {yellow, blue, red, green, orange, white}; // this is just a simple list that stores the servos that are to be turned
   while (!Serial.available()) {} // wait for data to arrive
-  if (Serial.available()){ // this will check if their is any more input left to take from the serial port which is written to with the python code
-    String str = "";
-    for (int i = 0; i < 2; i++){
-      char SerialData = Serial.read(); // this will actually read the input from the serial port assuming that their is actual input to be read
-      str += SerialData; // this just converts the char type variable to a string type variable 
+  while (Serial.available() && counter / 2 < 6){ // this will check if their is any more input left to take from the serial port which is written to with the python code
+    char SerialData = Serial.read(); // this will actually read the input from the serial port assuming that their is actual input to be read
+    str += SerialData; // this just converts the char type variable to a string type variable 
+    counter++;
+    if (counter % 2 == 0){
       Serial.println(str);
-    }
-//    Serial.println(str);
-    String side = "" + str.charAt(0);
-    String dir = "" + str.charAt(1);
-    sideIndex = sides.indexOf(side);
-    if (dir.equals("2")){ // this will be for a double turn
-      servos[sideIndex].write(180); // this will probably have to be adjusted later
-      delay(1000); //this will probably have to be adjusted later
-      servos[sideIndex].write(90); // this will stop the servo
-    }else if(dir.equals("'")){ // this will be for the counter clockwise turn
-      servos[sideIndex].write(0); // this will probably have to be adjusted later
-      delay(1000); //this will probably have to be adjusted later
-      servos[sideIndex].write(90); // this will stop the servo
-    }else{ // this will be for the clockwise turn
-      servos[sideIndex].write(180); // this will probably have to be adjusted later
-      delay(1000); //this will probably have to be adjusted later
-      servos[sideIndex].write(90); // this will stop the servo
-    }
+      String side = "" + str.charAt(0);
+      String dir = "" + str.charAt(1);
+      sideIndex = sides.indexOf(side);
+      if (dir.equals("2")){ // this will be for a double turn
+        servos[sideIndex].write(180); // this will probably have to be adjusted later
+        delay(1000); //this will probably have to be adjusted later
+        servos[sideIndex].write(90); // this will stop the servo
+      }else if(dir.equals("'")){ // this will be for the counter clockwise turn
+        servos[sideIndex].write(0); // this will probably have to be adjusted later
+        delay(1000); //this will probably have to be adjusted later
+        servos[sideIndex].write(90); // this will stop the servo
+      }else{ // this will be for the clockwise turn
+        servos[sideIndex].write(180); // this will probably have to be adjusted later
+        delay(1000); //this will probably have to be adjusted later
+        servos[sideIndex].write(90); // this will stop the servo
+      }
+        str = "";
+      }
   }
+  
 }
