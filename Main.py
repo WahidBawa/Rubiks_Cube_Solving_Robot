@@ -15,26 +15,13 @@ cube = 'rwbyybbwrggoybboyywobwrroogworyggrrgygwrooorbggybwbyww' #solve with red 
 
 # this below is just to count the amount of tiles with the same colour to ensure that their is no human error involved
 w = y = b = g = r = o = 0
+sides = ["w", "y", "b", "g", "r", "o"]
+sideNums = [0, 0, 0, 0, 0, 0]
 for i in cube:
-	if i == "w":
-		w += 1
-	if i == "y":
-		y += 1
-	if i == "b":
-		b += 1
-	if i == "g":
-		g += 1
-	if i == "r":
-		r += 1
-	if i == "o":
-		o += 1
-print("white: ", w)
-print("yellow: ", y)
-print("blue: ", b)
-print("green: ", g)
-print("red: ", r)
-print("orange: ", o)
-maxTiles = max(w, y, b, g, r, o)
+	sideNums[sides.index(i)] += 1
+
+maxTiles = max(sideNums[sides.index("w")], sideNums[sides.index("y")], sideNums[sides.index("b")], sideNums[sides.index("g")], sideNums[sides.index("r")], sideNums[sides.index("o")])
+print("Max:", maxTiles)
 port = "com4"
 
 if maxTiles == 9:
@@ -45,25 +32,22 @@ if maxTiles == 9:
 		if len(tmp) == 1: # this will add a space on single clockwise moves
 			tmp += " "
 		algo.append(tmp) # this will add the single move to the algo list
-	# print(solve, "size:", len(algo)) # this will print out the solve along with the actual size of the movements
+	print(solve, "size:", len(algo)) # this will print out the solve along with the actual size of the movements
 
-	algo = ["R2", "L2", "U2", "D2", "F2", "B2"] # testing the actual servos on something that should always work
+	# algo = ["R2", "L2", "U2", "D2", "F2", "B2"] # testing the actual servos on something that should always work
 	print(algo, "size:", len(algo)) # this will print out the solve along with the actual size of the movements
 	# you need to give the arduino side of things to properly initialize from prior experience, can't be sure of this until we test the theory
 
 	arduinoData = serial.Serial(port, 9600, timeout=5) # this could be either or, will have to see which one is the right one during testing
-	time.sleep(5) # sleeps for five seconds giving the arduino enough time to initialize
+	time.sleep(2) # sleeps for two seconds giving the arduino enough time to initialize
 	# arduinoData = serial.Serial('COM3', 9600)
-	counter = 0;
-	while(True):
-		for i in algo: # this will be used to feed the data to the arduino side of things to intitiate movements on the different servos
-			my_str = i
-			my_str_as_bytes = str.encode(my_str)
-			type(my_str_as_bytes) # ensure it is byte representation
-			my_decoded_str = my_str_as_bytes.decode()
-			type(my_decoded_str) # ensure it is string representation
-			arduinoData.write(my_str_as_bytes)
-			readin = arduinoData.readline()
-			print(readin)
+	# counter = 0;
+	# while(True): # commenting this out for the time being to see if it will work
+	for i in algo: # this will be used to feed the data to the arduino side of things to intitiate movements on the different servos
+		my_str = i
+		my_str_as_bytes = str.encode(my_str)
+		arduinoData.write(my_str_as_bytes)
+		readin = arduinoData.readline()
+		print(readin)
 else:
 	print("Human Error")
