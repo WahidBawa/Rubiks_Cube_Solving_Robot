@@ -21,7 +21,8 @@ for i in cube:
 
 maxTiles = max(sideNums[sides.index("w")], sideNums[sides.index("y")], sideNums[sides.index("b")], sideNums[sides.index("g")], sideNums[sides.index("r")], sideNums[sides.index("o")])
 print("Max:", maxTiles)
-port = "com4"
+port1 = "com4"
+port2 = "com5"
 
 if maxTiles == 9:
 	solve = utils.solve(cube, 'Kociemba') # this gets a solve alg
@@ -34,11 +35,20 @@ if maxTiles == 9:
 	print(solve, "size:", len(algo)) # this will print out the solve along with the actual size of the movements
 
 	# algo = ["R2", "L2", "U2", "D2", "F2", "B2"] # testing the actual servos on something that should always work
-	algo = ["F'", "F'", "F'", "F'"] # testing the actual servos on something that should always work
+	algo = ["U2", "D2", "R2", "L2", "F2", "B2"] # testing the actual servos on something that should always work
 	print(algo, "size:", len(algo)) # this will print out the solve along with the actual size of the movements
 	# you need to give the arduino side of things to properly initialize from prior experience, can't be sure of this until we test the theory
+	
+	try:
+		arduinoData = serial.Serial(port1, 9600, timeout=5) # this could be either or, will have to see which one is the right one during testing
+	except:
+		print("Port 1 is using the wrong port")
 
-	arduinoData = serial.Serial(port, 9600, timeout=5) # this could be either or, will have to see which one is the right one during testing
+	try:
+		arduinoData = serial.Serial("port2", 9600, timeout=5) # this could be either or, will have to see which one is the right one during testing
+	except:
+		print("Port 2 is using the wrong port")
+
 	time.sleep(2) # sleeps for two seconds giving the arduino enough time to initialize
 	# arduinoData = serial.Serial('COM3', 9600)
 	# counter = 0;

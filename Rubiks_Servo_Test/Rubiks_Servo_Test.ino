@@ -40,7 +40,7 @@ void loop() {
    */
   Servo servos[] = {yellow, blue, red, green, orange, white}; // this is just a simple list that stores the servos that are to be turned
   while (!Serial.available()) {} // wait for data to arrive
-  while (Serial.available() && counter < 4 * 2){ // this will check if their is any more input left to take from the serial port which is written to with the python code
+  while (Serial.available() && counter < 6 * 2){ // this will check if their is any more input left to take from the serial port which is written to with the python code
     char SerialData = Serial.read(); // this will actually read the input from the serial port assuming that their is actual input to be read
     str += SerialData; // this just converts the char type variable to a string type variable 
     counter++;
