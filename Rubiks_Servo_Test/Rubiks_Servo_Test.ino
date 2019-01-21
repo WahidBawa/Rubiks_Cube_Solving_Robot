@@ -16,6 +16,9 @@ int sideIndex; // this will get the index of the side that needs to be turned, t
 int led = 13;
 int counter = 0;
 String str = "";
+
+int n;
+boolean lengthFetched = false;
 void setup() {
   // this is just attaching the servos to their respective pins
   pinMode(led, OUTPUT);
@@ -40,7 +43,18 @@ void loop() {
    */
   Servo servos[] = {yellow, blue, red, green, orange, white}; // this is just a simple list that stores the servos that are to be turned
   while (!Serial.available()) {} // wait for data to arrive
-  while (Serial.available() && counter < 6 * 2){ // this will check if their is any more input left to take from the serial port which is written to with the python code
+  while (Serial.available() && !lengthFetched){
+    lengthFetched = true;
+    counter++;
+    if (counter % 2 == 0){
+      char SerialData = Serial.read();
+      str += SerialData;
+    }
+    n = str.toInt();
+  }
+
+
+  while (Serial.available() && counter < n * 2){ // this will check if their is any more input left to take from the serial port which is written to with the python code
     char SerialData = Serial.read(); // this will actually read the input from the serial port assuming that their is actual input to be read
     str += SerialData; // this just converts the char type variable to a string type variable 
     counter++;
@@ -51,10 +65,11 @@ void loop() {
       Serial.println(str.charAt(0));
       sideIndex = sides.indexOf(side);
       if (dir == '2'){ // this will be for a double turn
-        servos[sideIndex].write(180); // this will probably have to be adjusted later
+        servos[sideIndex].write(110); // this will probably have to be adjusted later
         Serial.println("turning twice");
-        delay(1000); //this will probably have to be adjusted later
+        delay(675); //this will probably have to be adjusted later
         servos[sideIndex].write(90); // this will stop the servo
+        delay(100);  
       }else if(dir == '\''){ // this will be for the counter clockwise turn
         servos[sideIndex].write(0); // this will probably have to be adjusted later
         Serial.println("inverse");

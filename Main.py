@@ -20,7 +20,8 @@ for i in cube:
 	sideNums[sides.index(i)] += 1
 
 maxTiles = max(sideNums[sides.index("w")], sideNums[sides.index("y")], sideNums[sides.index("b")], sideNums[sides.index("g")], sideNums[sides.index("r")], sideNums[sides.index("o")])
-print("Max:", maxTiles)
+# print("Max:", maxTiles)
+
 port1 = "com4"
 port2 = "com5"
 
@@ -34,8 +35,7 @@ if maxTiles == 9:
 		algo.append(tmp) # this will add the single move to the algo list
 	print(solve, "size:", len(algo)) # this will print out the solve along with the actual size of the movements
 
-	# algo = ["R2", "L2", "U2", "D2", "F2", "B2"] # testing the actual servos on something that should always work
-	algo = ["U2", "D2", "R2", "L2", "F2", "B2"] # testing the actual servos on something that should always work
+	algo = ["R2", "L2", "U2", "D2", "F2", "B2"] # testing the actual servos on something that should always work
 	print(algo, "size:", len(algo)) # this will print out the solve along with the actual size of the movements
 	# you need to give the arduino side of things to properly initialize from prior experience, can't be sure of this until we test the theory
 	
@@ -49,6 +49,11 @@ if maxTiles == 9:
 	except:
 		print("Port 2 is using the wrong port")
 
+	my_str = str(len(algo))
+	my_str_as_bytes = str.encode(my_str)
+	arduinoData.write(my_str_as_bytes)
+
+
 	time.sleep(2) # sleeps for two seconds giving the arduino enough time to initialize
 	# arduinoData = serial.Serial('COM3', 9600)
 	# counter = 0;
@@ -60,4 +65,4 @@ if maxTiles == 9:
 			readin = arduinoData.readline()
 			print(readin)
 else:
-	print("Human Error")
+	print("Human Error, cube state was entered incorrectly")
