@@ -51,12 +51,12 @@ void loop() {
   while (!Serial.available()) {} // wait for data to arrive
   while (Serial.available() && !lengthFetched){
     lengthFetched = true;
+    char SerialData = Serial.read();
+    str += SerialData;
     counter++;
     if (counter % 2 == 0){
-      char SerialData = Serial.read();
-      str += SerialData;
+      n = str.toInt();
     }
-    n = str.toInt();
   }
 
 
