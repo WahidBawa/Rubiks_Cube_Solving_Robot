@@ -1,4 +1,5 @@
 #include <Servo.h> // imports the library for the servos
+
 // the servos are made in the order that the colours are scanned
 Servo yellow;
 Servo blue;
@@ -9,9 +10,9 @@ Servo white;
 
 char SerialData; // this will store the next move to be made
 
-
 String sides = "ULFRBD"; // this will be used to determine the index of the servos depending on which side needs to be turned
 int sideIndex; // this will get the index of the side that needs to be turned, this is basically the index we will use to determine which servo will be used
+int numMoves = 4; // This is the number of moves the algorithm will take to solve the cube
 
 int led = 13;
 int counter = 0;
@@ -19,25 +20,30 @@ String str = "";
 
 int n;
 boolean lengthFetched = false;
+
 void setup() {
-  // this is just attaching the servos to their respective pins
   pinMode(led, OUTPUT);
+  
+  // this is just attaching the servos to their respective pins
   yellow.attach(A0);
   blue.attach(A1);
   red.attach(A2);
   green.attach(A3);
   orange.attach(A4);
   white.attach(A5);
+  
+  // This to stop the servos
   yellow.write(90);
   blue.write(90);
   red.write(90);
   green.write(90);
   orange.write(90);
   white.write(90);
+  
   Serial.begin(9600);
 }
 void loop() {
-  /* This will be for when we are actually transferring shit to arduino from python 
+  /* This will be for when we are actually transferring stuff to arduino from python 
    * Serial.available(); this will be checking whether there is input left
    * Serial.read(); this will read the input, the above line will make sure that there is somthing left to read to prevent any errors. This will be stored as a char
    */
