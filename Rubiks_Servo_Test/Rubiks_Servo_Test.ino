@@ -1,4 +1,5 @@
 #include <Servo.h> // imports the library for the servos
+
 // the servos are made in the order that the colours are scanned
 Servo yellow;
 Servo blue;
@@ -9,38 +10,44 @@ Servo white;
 
 char SerialData; // this will store the next move to be made
 
-
 String sides = "ULFRBD"; // this will be used to determine the index of the servos depending on which side needs to be turned
 int sideIndex; // this will get the index of the side that needs to be turned, this is basically the index we will use to determine which servo will be used
+int numMoves = 4; // This is the number of moves the algorithm will take to solve the cube
 
 int led = 13;
 int counter = 0;
 String str = "";
+
 void setup() {
-  // this is just attaching the servos to their respective pins
   pinMode(led, OUTPUT);
+  
+  // this is just attaching the servos to their respective pins
   yellow.attach(A0);
   blue.attach(A1);
   red.attach(A2);
   green.attach(A3);
   orange.attach(A4);
   white.attach(A5);
+  
+  // This to stop the servos
   yellow.write(90);
   blue.write(90);
   red.write(90);
   green.write(90);
   orange.write(90);
   white.write(90);
+  
   Serial.begin(9600);
 }
 void loop() {
-  /* This will be for when we are actually transferring shit to arduino from python 
+  /* This will be for when we are actually transferring stuff to arduino from python 
    * Serial.available(); this will be checking whether there is input left
    * Serial.read(); this will read the input, the above line will make sure that there is somthing left to read to prevent any errors. This will be stored as a char
    */
   Servo servos[] = {yellow, blue, red, green, orange, white}; // this is just a simple list that stores the servos that are to be turned
   while (!Serial.available()) {} // wait for data to arrive
-  while (Serial.available() && counter < 4 * 2){ // this will check if their is any more input left to take from the serial port which is written to with the python code
+  //The code below is reading the generated algorithm to solve the cube, reading in pairs of bits (That's why we're multiplying numMoves by 2)
+  while (Serial.available() && counter < numMoves * 2){ // this will check if their is any more input left to take from the serial port which is written to with the python code
     char SerialData = Serial.read(); // this will actually read the input from the serial port assuming that their is actual input to be read
     str += SerialData; // this just converts the char type variable to a string type variable 
     counter++;
