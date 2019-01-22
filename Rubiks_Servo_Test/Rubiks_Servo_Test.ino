@@ -21,6 +21,8 @@ String str = "";
 int n;
 boolean lengthFetched = false;
 
+boolean startSolve = false;
+
 void setup() {
   pinMode(led, OUTPUT);
   
@@ -57,11 +59,19 @@ void loop() {
       n = str.toInt();
       Serial.println(n);
       lengthFetched = true;
+      str = "";
     }
   }
 
+  while (Serial.available() && !startSolve){
+    char SerialData = Serial.read();
+    if (SerialData == "1"){
+      startSolve = true;
+      Serial.println(SerialData);
+    }
+  }
 
-  while (Serial.available() && counter < n * 2){ // this will check if their is any more input left to take from the serial port which is written to with the python code
+  while (Serial.available() && counter < n * 2 && startSolve){ // this will check if their is any more input left to take from the serial port which is written to with the python code
     char SerialData = Serial.read(); // this will actually read the input from the serial port assuming that their is actual input to be read
     str += SerialData; // this just converts the char type variable to a string type variable 
     counter++;
