@@ -50,12 +50,13 @@ void loop() {
   Servo servos[] = {yellow, blue, red, green, orange, white}; // this is just a simple list that stores the servos that are to be turned
   while (!Serial.available()) {} // wait for data to arrive
   while (Serial.available() && !lengthFetched){
-    lengthFetched = true;
     char SerialData = Serial.read();
     str += SerialData;
     counter++;
     if (counter % 2 == 0){
       n = str.toInt();
+      Serial.println(n);
+      lengthFetched = true;
     }
   }
 
