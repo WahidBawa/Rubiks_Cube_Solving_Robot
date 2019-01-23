@@ -23,7 +23,7 @@ maxTiles = max(sideNums[sides.index("w")], sideNums[sides.index("y")], sideNums[
 # print("Max:", maxTiles)
 
 port1 = "com4"
-port2 = "com5"
+port2 = "com10"
 
 if maxTiles == 9:
 	solve = utils.solve(cube, 'Kociemba') # this gets a solve alg
@@ -35,34 +35,48 @@ if maxTiles == 9:
 		algo.append(tmp) # this will add the single move to the algo list
 	print(solve, "size:", len(algo)) # this will print out the solve along with the actual size of the movements
 
-	algo = ["R2", "L2", "U2", "D2", "F2", "B2"] # testing the actual servos on something that should always work
+	algo = ["R2", "F2", "B2", "U2", "D2"] # testing the actual servos on something that should always work
+	# algo = ["L2"] # testing the actual servos on something that should always work
 	print(algo, "size:", len(algo)) # this will print out the solve along with the actual size of the movements
 	# you need to give the arduino side of things to properly initialize from prior experience, can't be sure of this until we test the theory
 	
 	try:
-		arduinoData = serial.Serial(port1, 9600, timeout=5) # this could be either or, will have to see which one is the right one during testing
+		arduinoData1 = serial.Serial(port1, 9600, timeout=5) # this could be either or, will have to see which one is the right one during testing
+		time.sleep(1)
+		my_str = str(len(algo))
+		my_str_as_bytes = str.encode(my_str)
+		arduinoData1.write(my_str_as_bytes)
 	except:
 		print("Port 1 is using the wrong port")
 
-	try:
-		arduinoData = serial.Serial("port2", 9600, timeout=5) # this could be either or, will have to see which one is the right one during testing
-	except:
-		print("Port 2 is using the wrong port")
+	# try:
+	# 	arduinoData2 = serial.Serial("port2", 9600, timeout=5) # this could be either or, will have to see which one is the right one during testing
+	# 	time.sleep(1)
+	# 	while True:
+	# 		readin = arduinoData2.readline();
+	# 		my_str = readin
+	# 		print(my_str)
+	# 		# if (my_str == "1"):
+	# 		# 	my_str_as_bytes = str.encode(my_str)
+	# 		# 	arduinoData1.write(my_str_as_bytes)
+	# 		# 	break
+	# except:
+	# 	print("Port 2 is using the wrong port")
 
-	my_str = str(len(algo))
-	my_str_as_bytes = str.encode(my_str)
-	arduinoData.write(my_str_as_bytes)
 
 
-	time.sleep(2) # sleeps for two seconds giving the arduino enough time to initialize
+	# time.sleep(1) # sleeps for two seconds giving the arduino enough time to initialize
+	# my_str = str(len(algo))
+	# my_str_as_bytes = str.encode(my_str)
+	# arduinoData1.write(my_str_as_bytes)
 	# arduinoData = serial.Serial('COM3', 9600)
 	# counter = 0;
-	while(True): # commenting this out for the time being to see if it will work
+	while(True): 
 		for i in algo: # this will be used to feed the data to the arduino side of things to intitiate movements on the different servos
 			my_str = i
 			my_str_as_bytes = str.encode(my_str)
-			arduinoData.write(my_str_as_bytes)
-			readin = arduinoData.readline()
+			arduinoData1.write(my_str_as_bytes)
+			readin = arduinoData1.readline()
 			print(readin)
 else:
 	print("Human Error, cube state was entered incorrectly")

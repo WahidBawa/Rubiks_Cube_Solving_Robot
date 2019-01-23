@@ -27,12 +27,12 @@ void setup() {
   pinMode(led, OUTPUT);
   
   // this is just attaching the servos to their respective pins
-  yellow.attach(A0);
-  blue.attach(A1);
-  red.attach(A2);
-  green.attach(A3);
-  orange.attach(A4);
-  white.attach(A5);
+  yellow.attach(7);
+  blue.attach(4);
+  red.attach(5);
+  green.attach(3);
+  orange.attach(6);
+  white.attach(2);
   
   // This to stop the servos
   yellow.write(90);
@@ -55,22 +55,24 @@ void loop() {
     char SerialData = Serial.read();
     str += SerialData;
     counter++;
-    if (counter % 2 == 0){
+    if (counter % 1 == 0){
       n = str.toInt();
       Serial.println(n);
       lengthFetched = true;
       str = "";
+      counter = 0;
     }
   }
 
-  while (Serial.available() && !startSolve){
-    char SerialData = Serial.read();
-    if (SerialData == "1"){
-      startSolve = true;
-      Serial.println(SerialData);
-    }
-  }
-
+  // while (Serial.available() && !startSolve){
+  //   char SerialData = Serial.read();
+  //   if (SerialData == "1"){
+  //     startSolve = true;
+  //     Serial.println(SerialData);
+  //   }
+  // }
+  startSolve = true;
+  for (int i = 1; i < n; i++) Serial.println(i);
   while (Serial.available() && counter < n * 2 && startSolve){ // this will check if their is any more input left to take from the serial port which is written to with the python code
     char SerialData = Serial.read(); // this will actually read the input from the serial port assuming that their is actual input to be read
     str += SerialData; // this just converts the char type variable to a string type variable 
@@ -84,7 +86,12 @@ void loop() {
       if (dir == '2'){ // this will be for a double turn
         servos[sideIndex].write(110); // this will probably have to be adjusted later
         Serial.println("turning twice");
-        delay(675); //this will probably have to be adjusted later
+        if (side == 'L') delay(720); //this will probably have to be adjusted later
+        if (side == 'R') delay(710);
+        if (side == 'F') delay(710);
+        if (side == 'B') delay(710);
+        if (side == 'U') delay(710);
+        if (side == 'D') delay(710);
         servos[sideIndex].write(90); // this will stop the servo
         delay(100);  
       }else if(dir == '\''){ // this will be for the counter clockwise turn
