@@ -24,7 +24,7 @@ maxTiles = max(sideNums[sides.index("w")], sideNums[sides.index("y")], sideNums[
 
 port1 = "com4"
 port2 = "com10"
-
+a_algo = []
 if maxTiles == 9:
 	solve = utils.solve(cube, 'Kociemba') # this gets a solve alg
 	algo = [] # this creates an empty list
@@ -32,18 +32,30 @@ if maxTiles == 9:
 		tmp = str(i) # it converts the solve instance to a string
 		if len(tmp) == 1: # this will add a space on single clockwise moves
 			tmp += " "
+			a_algo.append(tmp)
+		elif tmp[1] == "'":
+			for i in range(2):
+				a_algo.append(tmp[0] + " ")
+		elif tmp[1] == "2":
+			for i in range(1):
+				a_algo.append(tmp[0] + " ")
+
 		algo.append(tmp) # this will add the single move to the algo list
 	print(solve, "size:", len(algo)) # this will print out the solve along with the actual size of the movements
+	print(a_algo, "size:", len(a_algo)) # this will print out the solve along with the actual size of the movements
 
-	algo = ["R2", "F2", "B2", "U2", "D2"] # testing the actual servos on something that should always work
-	# algo = ["L2"] # testing the actual servos on something that should always work
+	# algo = ["R2", "F2", "B2", "U2", "D2", "L2"] # testing the actual servos on something that should always work
+	a_algo = ["F ", "F ", "F ", "F ", "B ", "B ", "B ", "B "] # testing the actual servos on something that should always work
+	# a_algo = ["F ", "F ", "F ", "F "] # testing the actual servos on something that should always work
+	# a_algo = ["U "] # testing the actual servos on something that should always work
 	print(algo, "size:", len(algo)) # this will print out the solve along with the actual size of the movements
 	# you need to give the arduino side of things to properly initialize from prior experience, can't be sure of this until we test the theory
 	
 	try:
 		arduinoData1 = serial.Serial(port1, 9600, timeout=5) # this could be either or, will have to see which one is the right one during testing
 		time.sleep(1)
-		my_str = str(len(algo))
+		my_str = str(len(a_algo))
+		# my_str = str(12)
 		my_str_as_bytes = str.encode(my_str)
 		arduinoData1.write(my_str_as_bytes)
 	except:
@@ -72,7 +84,7 @@ if maxTiles == 9:
 	# arduinoData = serial.Serial('COM3', 9600)
 	# counter = 0;
 	while(True): 
-		for i in algo: # this will be used to feed the data to the arduino side of things to intitiate movements on the different servos
+		for i in a_algo: # this will be used to feed the data to the arduino side of things to intitiate movements on the different servos
 			my_str = i
 			my_str_as_bytes = str.encode(my_str)
 			arduinoData1.write(my_str_as_bytes)

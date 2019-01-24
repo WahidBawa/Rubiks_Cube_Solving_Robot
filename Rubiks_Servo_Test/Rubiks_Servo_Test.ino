@@ -55,7 +55,7 @@ void loop() {
     char SerialData = Serial.read();
     str += SerialData;
     counter++;
-    if (counter % 1 == 0){
+    if (counter % 1  == 0){
       n = str.toInt();
       Serial.println(n);
       lengthFetched = true;
@@ -72,7 +72,7 @@ void loop() {
   //   }
   // }
   startSolve = true;
-  for (int i = 1; i < n; i++) Serial.println(i);
+  // for (int i = 1; i < n; i++) Serial.println(i);
   while (Serial.available() && counter < n * 2 && startSolve){ // this will check if their is any more input left to take from the serial port which is written to with the python code
     char SerialData = Serial.read(); // this will actually read the input from the serial port assuming that their is actual input to be read
     str += SerialData; // this just converts the char type variable to a string type variable 
@@ -84,12 +84,12 @@ void loop() {
       Serial.println(str.charAt(0));
       sideIndex = sides.indexOf(side);
       if (dir == '2'){ // this will be for a double turn
-        servos[sideIndex].write(110); // this will probably have to be adjusted later
+        servos[sideIndex].write(100); // this will probably have to be adjusted later
         Serial.println("turning twice");
-        if (side == 'L') delay(720); //this will probably have to be adjusted later
+        if (side == 'L') delay(1125); //this will probably have to be adjusted later
         if (side == 'R') delay(710);
-        if (side == 'F') delay(710);
-        if (side == 'B') delay(710);
+        if (side == 'F') delay(800);
+        if (side == 'B') delay(800);
         if (side == 'U') delay(710);
         if (side == 'D') delay(710);
         servos[sideIndex].write(90); // this will stop the servo
@@ -97,15 +97,25 @@ void loop() {
       }else if(dir == '\''){ // this will be for the counter clockwise turn
         servos[sideIndex].write(0); // this will probably have to be adjusted later
         Serial.println("inverse");
-        delay(350); //this will probably have to be adjusted later
+        if (side == 'L') delay(400); //this will probably have to be adjusted later
+        if (side == 'R') delay(400);
+        if (side == 'F') delay(400);
+        if (side == 'B') delay(480);
+        if (side == 'U') delay(400);
+        if (side == 'D') delay(400);
         servos[sideIndex].write(90); // this will stop the servo
         delay(100);
       }else{ // this will be for the clockwise turn
         Serial.println("clockwise");
         servos[sideIndex].write(180); // this will probably have to be adjusted later
-        delay(350); //this will probably have to be adjusted later
+        if (side == 'L') delay(440); //this will probably have to be adjusted later
+        if (side == 'R') delay(400);
+        if (side == 'F') delay(400);
+        if (side == 'B') delay(450);
+        if (side == 'U') delay(500);
+        if (side == 'D') delay(400);
         servos[sideIndex].write(90); // this will stop the servo
-        delay(100);
+        delay(1000);
       }
         str = "";
       }
